@@ -1,0 +1,6 @@
+/home/winter/workspace/Tinyhttpd/mywork/build/CMakeFiles/rebuild_cache.dir
+/home/winter/workspace/Tinyhttpd/mywork/build/CMakeFiles/edit_cache.dir
+/home/winter/workspace/Tinyhttpd/mywork/build/bin/CMakeFiles/rebuild_cache.dir
+/home/winter/workspace/Tinyhttpd/mywork/build/bin/CMakeFiles/edit_cache.dir
+/home/winter/workspace/Tinyhttpd/mywork/build/bin/CMakeFiles/client.dir
+/home/winter/workspace/Tinyhttpd/mywork/build/bin/CMakeFiles/server.dir
