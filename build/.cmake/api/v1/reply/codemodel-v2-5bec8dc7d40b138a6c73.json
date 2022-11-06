@@ -33,7 +33,7 @@
 					]
 				}
 			],
-			"name" : "Debug",
+			"name" : "",
 			"projects" : 
 			[
 				{
@@ -55,14 +55,14 @@
 				{
 					"directoryIndex" : 1,
 					"id" : "client::@90a2315b7a9c97cd24d2",
-					"jsonFile" : "target-client-Debug-ed0077272e752f0588c3.json",
+					"jsonFile" : "target-client-34e84745356ffb97d1a7.json",
 					"name" : "client",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 1,
 					"id" : "server::@90a2315b7a9c97cd24d2",
-					"jsonFile" : "target-server-Debug-706f2b76d20ea72a7b89.json",
+					"jsonFile" : "target-server-b4954afdeec55fa3180d.json",
 					"name" : "server",
 					"projectIndex" : 0
 				}

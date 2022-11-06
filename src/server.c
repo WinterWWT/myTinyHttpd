@@ -10,6 +10,8 @@
 #include <stdint.h>
 #include <unistd.h>
 
+#define BUF_SIZE 1024
+
 int startup(uint16_t *port);
 void accept_request(void * arg);
 
@@ -101,49 +103,71 @@ int startup(uint16_t * port)
 
 void accept_request(void * arg)
 {
-	char * read_buf = malloc(1024);
-	char * write_buf = malloc(1024);
-	memset(read_buf,0,1024);
-	memset(write_buf,'B',1024);
-	
-	char * ptr = read_buf;
 	int clientfd = (intptr_t)arg;
-	int nread = 0;
-	int nwrite = 0;
-	int nleft = 1024;
 
+	char * recv_buf = malloc(BUF_SIZE);
+	char * send_buf = malloc(BUF_SIZE);
+	memset(recv_buf,0,BUF_SIZE);
+	memset(send_buf,0,BUF_SIZE);
 	
-	while((nread = read(clientfd,ptr,1024 - nread)) > 0)
+	char * ptr  = recv_buf;
+	
+	int nsend = 0;
+	int nrecv = 0;
+	int nleft = 0;
+
+	printf("ready to recv.\n");
+	while( nrecv = recv(clientfd,ptr,1,0) > 0)
 	{
-		ptr += nread;
+		printf("here.\n");
+
+		if (*ptr == '\n')
+		{
+			ptr++;
+			break;
+		}
+		else
+		{
+			printf("%c",*ptr);
+		}
+
+		ptr++;
 	}
-	
-	printf("H.\n");
-	if (nread == -1)
+
+	printf("recv is end.\n");
+
+	if (nrecv < 0)
 	{
-		printf("error in read().\n");
+		printf("error in recv().\n");
 	}
 	else
 	{
-		printf("client write: %s.\n",read_buf);
+		//printf("");
+		//strcpy(ptr,'\n');
+		printf("client send: %s",recv_buf);
 	}
+	
+	printf("ready to send.\n");
 
-	ptr = write_buf;
+	ptr = send_buf;
+	sprintf(send_buf,"I'm fine,thank you.\n");
+	//nleft =sizeof(send_buf);
+	nleft = 20;
 
 	while(nleft > 0)
 	{
-		nwrite = write(clientfd,ptr,1024);
-
-		if (nwrite < 0)
+		nsend = send(clientfd,ptr,1,0);
+		if (nsend < 0)
 		{
-			printf("error in write().\n");
+			printf("error in send().\n");
 			break;
 		}
-
-		ptr += nwrite;
-		nleft -= nwrite;
+		nleft -= nsend;
+		//printf("%d.\n",nleft);
+		ptr++;
 	}
-	
+	printf("send is end.\n");
+
 	close(clientfd);
 	
 	pthread_exit(NULL);

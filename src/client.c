@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define BUF_SIZE 1024
 
 int main(int argc, char *argv[])
 {
@@ -14,7 +15,6 @@ int main(int argc, char *argv[])
 	int len;
 	struct sockaddr_in address;
 	int result;
-	//char ch = 'A';
 
 	sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
@@ -30,44 +30,63 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
-	char * read_buf = malloc(1024);
-	char * write_buf = malloc(1024);
-	memset(read_buf,0,1024);
-	memset(write_buf,'A',1024);
+	char * send_buf = malloc(BUF_SIZE);
+	char * recv_buf = malloc(BUF_SIZE);
+	memset(send_buf,0,BUF_SIZE);
+	memset(recv_buf,0,BUF_SIZE);
 
-	char * ptr = write_buf;
-        int nread = 0;
-        int nwrite = 0;
-        int nleft = 1024;
+	char * ptr = send_buf;
+        int nrecv = 0;
+        int nsend = 0;
+        int nleft = 0;
+
+        sprintf(send_buf,"How are you?\n");
+        printf("send: %s.\n",send_buf);
+        //nleft = sizeof(send_buf);
+        nleft = 13;
+        printf("nleft is %d.\n",nleft);
+
+	printf("ready to send.\n");
 
         while(nleft > 0)
         {
-                nwrite = write(sockfd,ptr,1024);
+                nsend = send(sockfd,ptr,1,0);
 
-                if (nwrite < 0)
+                if (nsend < 0)
                 {
-                        printf("error in write().\n");
+                        printf("error in send().\n");
 			break;
                 }
 
-                ptr += nwrite;
-                nleft -= nwrite;
+                ptr++;
+                nleft -= nsend;
+        }
+        
+        printf("nleft is %d.\n",nleft);
+
+        ptr = recv_buf;
+
+	printf("ready to recv.\n");
+
+	while(nrecv = recv(sockfd,ptr,1,0) > 0)
+        {
+                if (*ptr == '\n')
+		{
+			ptr++;
+			break;
+		}
+
+                ptr++;
         }
 
-        ptr = read_buf;
-
-	while((nread = read(sockfd,ptr,1024 - nread)) > 0)
+        if (nrecv < 0)
         {
-                ptr += nread;
-        }
-
-        if (nread == -1)
-        {
-                printf("error in read().\n");
+                printf("error in recv().\n");
         }
         else
         {
-                printf("server write: %s.\n",read_buf);
+                //strcpy(ptr,'\n');
+                printf("server send: %s\n",recv_buf);
         }
 
 	return 0;

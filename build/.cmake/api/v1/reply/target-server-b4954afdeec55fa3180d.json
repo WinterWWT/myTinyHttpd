@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "/home/winter/workspace/Tinyhttpd/mywork/bin/client"
+			"path" : "/home/winter/workspace/Tinyhttpd/mywork/bin/server"
 		}
 	],
 	"backtrace" : 1,
@@ -25,7 +25,7 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 15,
+				"line" : 12,
 				"parent" : 0
 			},
 			{
@@ -42,7 +42,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-g  "
+					"fragment" : " "
 				},
 				{
 					"backtrace" : 2,
@@ -60,24 +60,24 @@
 			]
 		}
 	],
-	"id" : "client::@90a2315b7a9c97cd24d2",
+	"id" : "server::@90a2315b7a9c97cd24d2",
 	"link" : 
 	{
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "-g",
+				"fragment" : "",
 				"role" : "flags"
 			},
 			{
-				"fragment" : "",
-				"role" : "flags"
+				"fragment" : "-lpthread",
+				"role" : "libraries"
 			}
 		],
 		"language" : "C"
 	},
-	"name" : "client",
-	"nameOnDisk" : "client",
+	"name" : "server",
+	"nameOnDisk" : "server",
 	"paths" : 
 	{
 		"build" : "bin",
@@ -98,7 +98,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/client.c",
+			"path" : "src/server.c",
 			"sourceGroupIndex" : 0
 		}
 	],
